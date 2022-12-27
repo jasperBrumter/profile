@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-/*
-	This style tag contains only the CSS necessary for the first load of the page, the rest is deferred at the end of the body for improved performance.
-	This does not matter too much for a static web page such as this one but makes a difference on larger websites.
-*/
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Portfolio</title>
+	<style>
+	/*
+		This style tag contains only the CSS necessary for the first load of the page, the rest is deferred at the end of the body for improved performance.
+		This does not matter too much for a static web page such as this one but makes a difference on larger websites.
+	*/
 
-body {
-	margin:0;
-	font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	color: rgb(30,30,30);
-}
+	body {
+		margin:0;
+		font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+		color: rgb(30,30,30);
+	}
 
-.fade {
-    opacity: 0 !important;
-    transition: .5s opacity;
-}
+	.fade {
+	    opacity: 0 !important;
+	    transition: .5s opacity;
+	}
 
-.hidden {
-	display: none !important;
-}
+	.hidden {
+		display: none !important;
+	}
 
-.firstscreen {
-	height: 100vh;
-	width: 100%;
-	position: fixed;
-	z-index: 999;
-	background-color: white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: .5s opacity;
-}
-</style>
+	.firstscreen {
+		height: 100vh;
+		width: 100%;
+		position: fixed;
+		z-index: 999;
+		background-color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: .5s opacity;
+	}
+	</style>
 </head>
 
 <body>
 <div class="firstscreen">
-	<h2>Jasper Brumter</h2>
+	<h2><code>Jasper Brumter</code></h2>
 </div>
 
 <div class="header">
 	<div class="container">
 		<div class="header-content">
-			<h1>Jasper Brumter</h1>
+			<h1><code>Jasper Brumter</code></h1>
 			<div class="flex-center">
 				<a class="icon-link" href="https://www.linkedin.com/in/jasper-brumter-64804aa7" target="_blank">
 					<img class="icon" src="https://www.iconsdb.com/icons/preview/black/linkedin-3-xxl.png" alt="linkedin" />
@@ -70,13 +73,15 @@ body {
 
 <div class="container">
 	<div class="content">
-		<h2 class="mt-10 mb-10">about</h2>
+		<h2 class="mt-10 mb-10"><code>about</code></h2>
 		<p>
 			Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
 		</p>
+		<br>
 		<p>
-			You can find my CV <a href="https://jasperBrumter.github.io/assets/CV2022FR.pdf">here</a>.
+			You can find my CV <a href="https://jasperBrumter.github.io/profile/assets/CV2022FR.pdf" target="_blank">here</a>.
 		</p>
+		<br>
 		<p>
 			Work in progress...
 		</p>
@@ -90,9 +95,11 @@ body {
 		  document.querySelector('.firstscreen').classList.add('fade')
 		  setTimeout(function () {
 			  document.querySelector('.firstscreen').classList.add('hidden')
-			}, 1);
-		}, 1);
-		// 500, 1200
+			}, 500);
+		}, 1200);
+
+		// 	}, 1);
+		// }, 1);
 
 		// Set Date
 		const today = new Date();
