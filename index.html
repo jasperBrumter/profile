@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/*
+	This style tag contains only the CSS necessary for the first load of the page, the rest is deferred at the end of the body for improved performance.
+	This does not matter too much for a static web page such as this one but makes a difference on larger websites.
+*/
+
+body {
+	margin:0;
+	font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	color: rgb(30,30,30);
+}
+
+.fade {
+    opacity: 0 !important;
+    transition: .5s opacity;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.firstscreen {
+	height: 100vh;
+	width: 100%;
+	position: fixed;
+	z-index: 999;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: .5s opacity;
+}
+</style>
+</head>
+
+<body>
+<div class="firstscreen">
+	<h2>Jasper Brumter</h2>
+</div>
+
+<div class="header">
+	<div class="container">
+		<div class="header-content">
+			<h1>Jasper Brumter</h1>
+			<div class="flex-center">
+				<a class="icon-link" href="https://www.linkedin.com/in/jasper-brumter-64804aa7" target="_blank">
+					<img class="icon" src="https://www.iconsdb.com/icons/preview/black/linkedin-3-xxl.png" alt="linkedin" />
+				</a>
+				<a class="icon-link" href="https://github.com/jasperBrumter" target="_blank">
+					<img class="icon" id="github" src="https://raw.githubusercontent.com/seasonfif/github/master/icon/icon_192.png" alt="github" />
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="sky" id="sky">
+</div>
+<div class="subtitle">
+	<div class="container">
+		"Meteor Shower" by J. Brumter<br>
+		Unique Painting<br>
+		JS on Canvas<br>
+		<span id="date"></span>
+	</div>
+</div>
+
+<div class="container">
+	<div class="content">
+		<h2 class="mt-10 mb-10">about</h2>
+		<p>
+			Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
+		</p>
+		<p>
+			You can find my CV <a href="https://jasperBrumter.github.io/assets/CV2022FR.pdf">here</a>.
+		</p>
+		<p>
+			Work in progress...
+		</p>
+	</div>
+</div>
+
+<script>
+	//after 1.2s fade out, after .5s remove
+  document.addEventListener('DOMContentLoaded', function(e) {
+  	setTimeout(function () {
+		  document.querySelector('.firstscreen').classList.add('fade')
+		  setTimeout(function () {
+			  document.querySelector('.firstscreen').classList.add('hidden')
+			}, 1);
+		}, 1);
+		// 500, 1200
+
+		// Set Date
+		const today = new Date();
+		const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+		document.getElementById('date')
+			.innerHTML = `${months[today.getMonth()]} ${today.getFullYear()}`;
+  });
+
+	// Adding stars to the sky
+	const sky = document.getElementById('sky');
+	for (let i = 0; i < 800; i++) {
+		const star = document.createElement('div');
+		star.className = 'star';
+		star.style.left = `${Math.random() * 100}%`;
+		star.style.top = `${Math.random() * 100}%`;
+		const color = 100 + Math.floor(Math.random() * 155);
+		const sizeDraw = Math.random() * 100;
+		let size = '1px';
+		if (sizeDraw > 95) {
+			size = '3px';
+		} else if (sizeDraw > 75) {
+			size = '2px';
+		}
+		star.style.backgroundColor = `rgb(${color},${color},${color})`;
+		star.style.height = size;
+		star.style.width = size;
+		sky.appendChild(star);
+	}
+
+
+	// Adding shooting stars
+	for (let i = 0; i < 10; i++) {
+		const shootingStar = document.createElement('div');
+		shootingStar.className = 'shootingStar';
+		shootingStar.style.left = `${-10 + (i / 2)}%`;
+		shootingStar.style.top = `50%`;
+		const sizeDraw = Math.random() * 100;
+		let size = `${i / 3}px`
+		shootingStar.style.backgroundColor = 'rgb(220,220,220)';
+		shootingStar.style.height = size;
+		shootingStar.style.width = size;
+		sky.appendChild(shootingStar);
+	}
+
+	var shootingStars = document.querySelectorAll('.shootingStar');
+	var speedX = 1 + Math.random()
+	var speedY = Math.random()
+
+	// Moving shooting stars
+	setTimeout(function () {
+		for (var i = 0; i < shootingStars.length; i++) {
+			var curPosX = shootingStars[i].style.left;
+			curPosX = curPosX.split('%')[0];
+			curPosX = parseFloat(curPosX) + speedX;
+			curPosX = curPosX.toString() + '%';
+			shootingStars[i].style.left=curPosX;
+			var curPosY = shootingStars[i].style.top;
+			curPosY = curPosY.split('%')[0];
+			curPosY = parseFloat(curPosY) + speedY;
+			curPosY = curPosY.toString() + '%';
+			shootingStars[i].style.top=curPosY;
+		}
+	    setTimeout(arguments.callee, 1);
+	}, 2000);
+
+	// IIFE for randomizing speed
+	(function(){
+		if (Math.random() < .5) {
+			speedY = -1 + Math.random()
+		}
+		else {
+			speedY = Math.random()
+		}
+		if (Math.random() < .5) {
+			var top = (Math.random() * 100)
+			for (var i = 0; i < shootingStars.length; i++) {
+				shootingStars[i].style.left = (-10 +(i/2.0)).toString() + '%';
+				shootingStars[i].style.top = (top + (speedY * i/4)).toString() + '%';
+			}
+			speedX = 1 + Math.random()
+
+		}
+		else {
+			var top = (Math.random() * 100)
+			for (var i = 0; i < shootingStars.length; i++) {
+				shootingStars[i].style.left = (110 -(i/2.0)).toString() + '%';
+				shootingStars[i].style.top = (top + (speedY * i/4)).toString() + '%';
+			}
+			speedX = -2 + Math.random()
+		}
+	    setTimeout(arguments.callee, 2000 + Math.random() * 5000);
+	})();
+</script>
+
+<style>
+/*
+	This style is at the end of the body as it is not necessary to load immediately.
+	Deferring the load of assets improves page performace.
+*/
+* {
+	margin: 0;
+}
+
+a {
+	color: darkblue;
+	text-decoration: none;
+}
+.container {
+	max-width: 100%;
+	width: 800px;
+	margin: 0 auto;
+}
+
+.header {
+	height: 60px;
+	width: 100%;
+	background-color: rgb(230,230,230);
+	background-color: white;
+}
+
+.header-content {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	margin: 0;
+}
+
+.sky {
+	width: 100%;
+	height: 70vh;
+	min-height: 500px;
+	background-image: linear-gradient(rgb(0, 0, 30), rgb(90, 90, 250));
+	background-attachment: fixed;
+	position: relative;
+	overflow: hidden;
+}
+
+.star {
+	position: absolute;
+	border-radius: 50%;
+}
+
+.shootingStar {
+	position: absolute;
+	border-radius: 50%;
+	background-color: white;
+}
+
+.subtitle {
+	text-align: right;
+	margin-right: 10px;
+	font-size: 12px;
+}
+.content {
+	margin: 10px auto 10px auto;
+	padding: 5px;
+}
+
+.mt-10 {
+	margin-top: 10px;
+}
+.mb-10 {
+	margin-bottom: 10px;
+}
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.icon {
+	width: 30px;
+	height: 30px;
+}
+#github {
+	width: 37px;
+	height: 37px;
+}
+
+</style>
+</body>
+</html>
