@@ -48,12 +48,13 @@
 	<div class="container">
 		<div class="header-content">
 			<h1><code>Jasper Brumter</code></h1>
-			<div class="flex-center">
+			<div class="flex-end">
 				<a class="icon-link" href="https://www.linkedin.com/in/jasper-brumter-64804aa7" target="_blank">
-					<img class="icon" src="https://www.iconsdb.com/icons/preview/black/linkedin-3-xxl.png" alt="linkedin" />
+					<img class="icon" src="./assets/linkedin.png" alt="linkedin" style="width: 32px; height: 32px;"/>
 				</a>
+				&nbsp;&nbsp;
 				<a class="icon-link" href="https://github.com/jasperBrumter" target="_blank">
-					<img class="icon" id="github" src="https://raw.githubusercontent.com/seasonfif/github/master/icon/icon_192.png" alt="github" />
+					<img class="icon" id="github" src="./assets/github.png" alt="github" style="width: 34px; height: 34px;" />
 				</a>
 			</div>
 		</div>
@@ -64,8 +65,7 @@
 </div>
 <div class="subtitle">
 	<div class="container">
-		"Meteor Shower" by J. Brumter<br>
-		Unique Painting<br>
+		"Once-in-a-lifetime Meteor Shower" by J. Brumter<br>
 		JS on Canvas<br>
 		<span id="date"></span>
 	</div>
@@ -103,18 +103,38 @@
 
 		// Set Date
 		const today = new Date();
+		console.log('')
 		const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+		const st = [1, 21, 31];
+		const nd = [2, 22];
+		const rd = [3, 23];
+		const day = today.getDate();
+		let end = 'th';
+		if (st.includes(day)) {
+			end = 'st';
+		} else if (nd.includes(day)) {
+			end = 'nd';
+		} else if (rd.includes(day)) {
+			end = 'rd';
+		}
 		document.getElementById('date')
-			.innerHTML = `${months[today.getMonth()]} ${today.getFullYear()}`;
+			.innerHTML = `${months[today.getMonth()]} ${day}${end} ${today.getFullYear()}`;
   });
 
 	// Adding stars to the sky
 	const sky = document.getElementById('sky');
-	for (let i = 0; i < 800; i++) {
+	const width = window.innerWidth * 1.5;
+	let numberOfStars = 3000
+	if (width < 1000) {
+		numberOfStars = 1000;
+	} else if (width < 2000) {
+		numberOfStars = 2000;
+	}
+	for (let i = 0; i < numberOfStars; i++) {
 		const star = document.createElement('div');
 		star.className = 'star';
-		star.style.left = `${Math.random() * 100}%`;
-		star.style.top = `${Math.random() * 100}%`;
+		star.style.left = `${Math.random() * width}px`;
+		star.style.top = `${Math.random() * width}px`;
 		const color = 100 + Math.floor(Math.random() * 155);
 		const sizeDraw = Math.random() * 100;
 		let size = '1px';
@@ -266,10 +286,11 @@ a {
 .mb-10 {
 	margin-bottom: 10px;
 }
-.flex-center {
+.flex-end {
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding-top: 5px;
 }
 .icon {
 	width: 30px;
