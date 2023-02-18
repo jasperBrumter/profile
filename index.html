@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Portfolio</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
 	<style>
 	/*
 		This style tag contains only the CSS necessary for the first load of the page, the rest is deferred at the end of the body for improved performance.
@@ -44,7 +47,7 @@
 	<h2><code>Jasper Brumter</code></h2>
 </div>
 
-<div class="header">
+<div class="header hidden">
 	<div class="container">
 		<div class="header-content">
 			<h1><code>Jasper Brumter</code></h1>
@@ -73,7 +76,11 @@
 
 <div class="container">
 	<div class="content">
-		<h2 class="mt-10 mb-10"><code>about</code></h2>
+		<h2 class="mt-10 mb-10">
+			<code>
+				about
+			</code>
+		</h2>
 		<p>
 			Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
 		</p>
@@ -89,37 +96,39 @@
 </div>
 
 <script>
-	//after 1.2s fade out, after .5s remove
-  document.addEventListener('DOMContentLoaded', function(e) {
+document.addEventListener('DOMContentLoaded', function(e) {
+	// Fade-out after 1.2s, remove after .5s
   	setTimeout(function () {
-		  document.querySelector('.firstscreen').classList.add('fade')
-		  setTimeout(function () {
-			  document.querySelector('.firstscreen').classList.add('hidden')
-			}, 500);
-		}, 1200);
+		document.querySelector('.firstscreen').classList.add('fade');
+		document.querySelector('.header').classList.remove('hidden');
+		setTimeout(function () {
+			document.querySelector('.firstscreen').classList.add('hidden');
+		}, 500);
+	}, 1200);
+	// For faster development comment replace fade-in speed by uncommenting
+	// 	}, 1);
+	// }, 1);
+});
 
-		// 	}, 1);
-		// }, 1);
 
-		// Set Date
-		const today = new Date();
-		console.log('')
-		const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-		const st = [1, 21, 31];
-		const nd = [2, 22];
-		const rd = [3, 23];
-		const day = today.getDate();
-		let end = 'th';
-		if (st.includes(day)) {
-			end = 'st';
-		} else if (nd.includes(day)) {
-			end = 'nd';
-		} else if (rd.includes(day)) {
-			end = 'rd';
-		}
-		document.getElementById('date')
-			.innerHTML = `${months[today.getMonth()]} ${day}${end} ${today.getFullYear()}`;
-  });
+	// Set Date
+	const today = new Date();
+	console.log('')
+	const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+	const st = [1, 21, 31];
+	const nd = [2, 22];
+	const rd = [3, 23];
+	const day = today.getDate();
+	let end = 'th';
+	if (st.includes(day)) {
+		end = 'st';
+	} else if (nd.includes(day)) {
+		end = 'nd';
+	} else if (rd.includes(day)) {
+		end = 'rd';
+	}
+	document.getElementById('date')
+		.innerHTML = `${months[today.getMonth()]} ${day}${end} ${today.getFullYear()}`;
 
 	// Adding stars to the sky
 	const sky = document.getElementById('sky');
