@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Sudoku Solver</title>
+
+</head>
+<body>
+	<div class="container">
+		<div class="content">
+			<center>
+				<h1 class="title"><div>SUD</div><div class="japan"></div><div>KU</div></h1>
+
+				<p id="subtitle">Welcome to the Sudoku Solver</p>
+				<div id="grid"></div>
+			</center>
+		</div>
+	</div>
+
+
+<script src="./app.js"></script>
+
+<script>
+
+</script>
+
+<style>
+	.container {
+		max-width: 600px;
+		margin: 0 auto;
+		display: flex;
+		flex-a
+	}
+
+	.content {
+		width: 100%;
+	}
+
+	.title {
+		width: 150px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 26px;
+		letter-spacing: 3px;
+	}
+	#subtitle {
+		border: 1px solid black;
+		max-width: 360px;
+		padding: 10px 15px;
+		box-sizing:border-box;
+	}
+
+	.japan {
+		margin-right: 3px;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background-color: red;
+	}
+
+	#grid {
+		margin: 0 auto;
+		width: 360px;
+	}
+
+	.row {
+		height: 40px;
+		display: flex;
+	}
+
+	.small-square {
+		height: 40px;
+		width: 40px;
+		border: 0.5px solid black;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing:border-box;
+		position: relative;
+		transition: 0.3s linear smooth;
+	}
+
+	.highlight {
+		transition: 0.3s linear smooth;
+		background-color: rgba(255,0,0,.2);
+	}
+
+	.secondary-highlight {
+		transition: 0.3s linear smooth;
+		background-color: rgba(0,0,255,.2);
+	}
+
+	.pencil {
+		position: absolute;
+		font-size: 10px;
+	}
+	.pencil-1 {
+		top: 1px;
+		left: 1px;
+	}
+	.pencil-2 {
+		top: 1px;
+		left: 16px;
+	}
+	.pencil-3 {
+		top: 1px;
+		right: 2px;
+	}
+	.pencil-4 {
+		top: 14px;
+		left: 1px;
+	}
+	.pencil-5 {
+		top: 14px;
+		left: 16px;
+	}
+	.pencil-6 {
+		top: 14px;
+		right: 2px;
+	}
+	.pencil-7 {
+		bottom: 0px;
+		left: 1px;
+	}
+	.pencil-8 {
+		bottom: 0px;
+		left: 16px;
+	}
+	.pencil-9 {
+		bottom: 0px;
+		right: 2px;
+	}
+
+	.border-top {
+		border-top: 3px solid black;
+	}
+
+	.border-left {
+		border-left: 3px solid black;
+	}
+
+	.border-bottom {
+		border-bottom: 3px solid black;
+	}
+
+	.border-right {
+		border-right: 3px solid black;
+	}
+
+	.border-top .pencil-4,
+	.border-top .pencil-5,
+	.border-top .pencil-6 {
+		top: 13px;
+	}
+
+
+	.border-bottom .pencil-4,
+	.border-bottom .pencil-5,
+	.border-bottom .pencil-6 {
+		top: 14px;
+	}
+
+	.border-bottom .pencil-7,
+	.border-bottom .pencil-8,
+	.border-bottom .pencil-9 {
+		bottom: -1px;
+	}
+
+</style>
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+________________________
+
+Functions:
+________________________
+
+
+// Pencil down number in square
+function Pencil (small_square, number) {
+	a[x][y] = {
+		pen: null,
+		pencil: []
+	}
+	a[x][y].pencil.push(number);
+}
+
+// Pen down number in square
+function Pen (small_square_x, small_square_y, number) {
+	a[x][y] = {
+		pen: number
+		pencil: [],
+	}
+
+	removePencilFromRestofRow(small_square_y);
+	removePencilFromRestofColumn(small_square_x);
+}
+
+// Check if square has all penciled N in single column or single row
+function checkBlockedRows (large_square) {
+	return boolean true/false
+}
+function checkBlockedColumns (large_square) {
+	return boolean true/false
+}
+
+// Remove pencil from rest of row
+function removePencilFromRestOfRow (small_square, number) {
+	
+}
+
+// Remove pencil from rest of column
+function removePencilFromRestOfRow (small_square, number) {
+	
+}
+
+// Check if only one small_square of large_square has penciled number
+function checkIfOnly (small_square)
+
+
+________________________
+
+Process:
+________________________
+
+
+1. Take user input in grid (pen)
+
+2. For every number N [1,2,3,4,5,6,7,8,9]
+    -> pencil down available spots for each N
+    -> cleanup()
+        -> if one L.Square has all penciled N in single column or single row
+        -> remove penciled Ns from that column or row in other L.Squares
+    -> see if there is only one available spot for penciled N in Large Square
+        -> remove pencil N and replace by pen N
+
+3. For each row, for each number, see if there is only one spot for penciled N. In that case, replace penciled N with penned N.
+
+4. For each column, for each number, see if there is only one spot for penciled N. In that case, replace penciled N with penned N.
+
+5. Cleanup large square()
+    -> In Large Square, using pencilled info, establish if a subset of small_squares of size S is definitely populated with some numbers N.
+        -> In this case, remove other pencilled numbers.
+
+6. Repeat steps 3,4,5. If nothing has changed, end loop to avoid memory leak.
+
+
+
+
+________________________
+
+UI:
+________________________
+
+Vue App,
+Grid,
+Top sentence explaining current step,
+Choose speed of solve steps,
+
+
+
