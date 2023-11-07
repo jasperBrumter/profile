@@ -51,13 +51,17 @@
 	<div class="container">
 		<div class="header-content">
 			<h1><code>Jasper Brumter</code></h1>
-			<div class="flex-end">
+			<div class="social-links">
 				<a class="icon-link" href="https://www.linkedin.com/in/jasper-brumter-64804aa7" target="_blank">
 					<img class="icon" src="./assets/linkedin.png" alt="linkedin" style="width: 32px; height: 32px;"/>
 				</a>
 				&nbsp;&nbsp;
 				<a class="icon-link" href="https://github.com/jasperBrumter" target="_blank">
 					<img class="icon" id="github" src="./assets/github.png" alt="github" style="width: 34px; height: 34px;" />
+				</a>
+				&nbsp;&nbsp;
+				<a class="icon-link">
+					<img class="icon" id="darkmode" src="./assets/darkmode.png" alt="darkmode" style="width: 34px; height: 34px;" />
 				</a>
 			</div>
 		</div>
@@ -66,15 +70,14 @@
 
 <div class="sky" id="sky">
 </div>
-<div class="subtitle">
-	<div class="container">
-		"Once-in-a-lifetime Meteor Shower" by J. Brumter<br>
-		JS on Canvas<br>
-		<span id="date"></span>
-	</div>
-</div>
 
 <div class="container">
+	<div class="subtitle">
+			"Once-in-a-lifetime Meteor Shower" by J. Brumter<br>
+			JS on Canvas<br>
+			<span id="date"></span>
+	</div>
+
 	<div class="content">
 		<h2 class="mt-10 mb-10">
 			<code>
@@ -96,12 +99,15 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(e) {
+const header = document.querySelector('.header');
+const body = document.body;
+
+document.addEventListener('DOMContentLoaded', () => {
 	// Fade-out after 1.2s, remove after .5s
   	setTimeout(function () {
 		document.querySelector('.firstscreen').classList.add('fade');
-		document.querySelector('.header').classList.remove('hidden');
-		setTimeout(function () {
+		header.classList.remove('hidden');
+		setTimeout(() => {
 			document.querySelector('.firstscreen').classList.add('hidden');
 		}, 500);
 	}, 1200);
@@ -110,6 +116,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	// }, 1);
 });
 
+document.getElementById('darkmode').addEventListener('click', () => {
+	body.classList.toggle('darkmode');
+	header.classList.toggle('darkmode');
+})
 
 	// Set Date
 	const today = new Date();
@@ -236,6 +246,24 @@ a {
 	color: darkblue;
 	text-decoration: none;
 }
+.icon-link {
+	cursor:pointer;
+}
+
+.darkmode {
+	background-color: black !important;
+	color: white !important;
+	transition: .5s;
+}
+
+.darkmode a {
+	color: lightblue;
+}
+
+.darkmode .social-links {
+	background-color: rgb(60,60,60);
+	transition: .5s;
+}
 .container {
 	max-width: 100%;
 	width: 800px;
@@ -256,6 +284,11 @@ a {
 	align-items: center;
 	padding: 5px;
 	margin: 0;
+}
+
+.header img:hover {
+	opacity: .5;
+	transition: .2s;
 }
 
 .sky {
@@ -295,7 +328,11 @@ a {
 .mb-10 {
 	margin-bottom: 10px;
 }
-.flex-end {
+.social-links {
+	background-color: white;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 2px;
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-end;
