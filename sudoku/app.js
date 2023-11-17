@@ -118,7 +118,7 @@ ________________________________________________________________________________
 
 	const USED_ENTRIES = expert_entries;
 
-	const timer = 1;
+	const timer = 30;
 
 
 
@@ -741,6 +741,7 @@ ________________________________________________________________________________
 
 	const process = async () => {
 		initializeTable();
+		await new Promise(resolve => setTimeout(resolve, 3000));
 		await new Promise(resolve => setTimeout(resolve, timer * 2));
 		await traverseTreeAndFindPencilled();
 		setSubtitle('Great!')
@@ -764,7 +765,7 @@ ________________________________________________________________________________
 		}
 		await cleanUpPencilled()
 
-		await new Promise(resolve => setTimeout(resolve, 4000));
+		// await new Promise(resolve => setTimeout(resolve, 4000));
 		// removePencilled(6,4,8);
 		// removePencilled(6,5,8);
 
@@ -779,6 +780,11 @@ ________________________________________________________________________________
 
 
 		await findXWings();
+
+		replacePencilled = true;
+		while (replacePencilled) {
+			replacePencilled = await replaceForcedPencilled();
+		}
 
 
 	}

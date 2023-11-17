@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Sudoku Solver</title>
+
+</head>
+<body>
+	<div class="container">
+		<div class="content">
+			<center>
+				<img class="click-image" src="https://images.pexels.com/photos/2907428/pexels-photo-2907428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+				<img class="click-image" src="https://images.pexels.com/photos/2747421/pexels-photo-2747421.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+				<img class="click-image" src="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+				<img class="click-image" src="https://images.pexels.com/photos/974229/pexels-photo-974229.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+				<img class="click-image" src="https://images.pexels.com/photos/2629173/pexels-photo-2629173.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+				<img class="click-image" src="https://images.pexels.com/photos/47305/bananas-banana-shrub-fruits-yellow-47305.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+				<img class="click-image" src="https://images.pexels.com/photos/822647/pexels-photo-822647.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+				<img class="click-image" src="https://images.pexels.com/photos/15662974/pexels-photo-15662974/free-photo-of-fresh-ripe-figs.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+			</center>
+		</div>
+	</div>
+
+
+<script src="./app.js"></script>
+
+<script>
+const images = document.getElementsByClassName('click-image');
+console.log('images', images);
+
+for (let i = 0; i < images.length; i++) {
+	console.log(images[i]);
+	const image = images[i];
+	image.addEventListener('click', () => {
+		console.log('click', image);
+		const link = image.getAttribute('src');
+		const email = "mail1@example.com,mail2@example.com,mail3@example.com,mail4@example.com,mail5@example.com,mail6@example.com,mail7@example.com,mail8@example.com,mail9@example.com,mail10@example.com,mail11@example.com,mail12@example.com";
+		const subject = "Test Email";
+		const msgBody = `<!DOCTYPE html>
+		<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
+		<meta charset="utf-8"> <!-- utf-8 works for most cases -->
+		<meta name="viewport" content="width=device-width">
+		</head>
+		<body>
+		<img src="${link}" width="600"/>
+		</body></html>`;
+    	window.open(`mailto:${email}?subject=${subject}&body=${msgBody}`);
+	})
+}
+</script>
+
+<style>
+	.container {
+		max-width: 600px;
+		margin: 0 auto;
+		display: flex;
+		flex-a
+	}
+
+	.content {
+		width: 100%;
+	}
+
+	.click-image {
+		max-width: 600px;
+	}
+
+
+</style>
+</body>
+</html>
+
