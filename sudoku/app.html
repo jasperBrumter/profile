@@ -14,7 +14,10 @@
 				<h1 class="title"><div>SUD</div><div class="japan"></div><div>KU</div></h1>
 
 				<p id="subtitle">Welcome to the Sudoku Solver</p>
+
 				<div id="grid"></div>
+
+				<button id="solve">Solve</button>
 			</center>
 		</div>
 	</div>
@@ -51,6 +54,13 @@
 		max-width: 360px;
 		padding: 10px 15px;
 		box-sizing:border-box;
+	}
+
+	#solve {
+		margin-top: 30px;
+		height: 30px;
+		width: 360px;
+		cursor: pointer;
 	}
 
 	.japan {
@@ -167,6 +177,18 @@
 	.border-bottom .pencil-8,
 	.border-bottom .pencil-9 {
 		bottom: -1px;
+	}
+
+	.blink-highlight {
+		animation: blinkingBackground 2s infinite;
+	}
+
+	@keyframes blinkingBackground{
+		0%		{ background-color: rgba(0,0,255,.4)}
+		25%		{ background-color: #fff;}
+		50%		{ background-color: rgba(0,0,255,.4)}
+		75%		{ background-color: #fff;}
+		100%	{ background-color: rgba(0,0,255,.4)}
 	}
 
 </style>

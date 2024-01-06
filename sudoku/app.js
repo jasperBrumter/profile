@@ -105,18 +105,18 @@ ________________________________________________________________________________
 	];
 
 	const empty_entry = [
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,null,null,null,null,null,null],
 	];
 
-	const USED_ENTRIES = expert_entries;
+	const USED_ENTRIES = empty_entry;
 
 	const timer = 30;
 
@@ -136,8 +136,11 @@ ________________________________________________________________________________
 	const BLOCKS = [1,2,3];
 	const INTEGERS = [1,2,3,4,5,6,7,8,9];
 
+	let ALL_SQUARES = [];
+
 	const HIGHLIGHT_CLASS = 'highlight';
 	const SECONDARY_HIGHLIGHT_CLASS = 'secondary-highlight';
+	const BLINK_CLASS = 'blink-highlight';
 
 
 
@@ -231,7 +234,7 @@ ________________________________________________________________________________
 		} else if (rowIndex === 8) {
 			squareClass += ' border-bottom';
 		}
-		// Horizontal Lines
+		// Vertical Lines
 		if (columnIndex % 3 === 0) {
 			squareClass += ' border-left';
 		} else if (columnIndex === 8) {
@@ -326,6 +329,25 @@ ________________________________________________________________________________
 			square.classList.remove(HIGHLIGHT_CLASS);
 			square.classList.remove(SECONDARY_HIGHLIGHT_CLASS);
 		}, timer);
+	}
+
+	const removeAnimateSquare = (squareId) => {
+		const square = document.getElementById(squareId);
+		square.classList.remove(BLINK_CLASS);
+	}
+	/*
+	 * Add temporary highlighted class
+	 *
+	 * @prop {String} subtitle    - the new subtitle
+	 *
+	 * @return {void}
+	 */
+	const animateSquare = (squareId) => {
+		const square = document.getElementById(squareId);
+		ALL_SQUARES.forEach(otherSquare => {
+			removeAnimateSquare(otherSquare);
+		})
+		square.classList.add(BLINK_CLASS);
 	}
 
 	/*
@@ -438,11 +460,12 @@ ________________________________________________________________________________
 	 * @return {void}
 	 */
 	const writePen = (rowIndex, columnIndex, number) => {
+		if (number === 0) {}
 		SUDOKU_TABLE[rowIndex][columnIndex] = {
-			pen: number,
+			pen: number === 0 ? null : number,
 			pencil: [],
 		}
-		document.getElementById(getSmallSquareDivId(rowIndex, columnIndex)).innerHTML = `<b>${number}</b>`;
+		document.getElementById(getSmallSquareDivId(rowIndex, columnIndex)).innerHTML = number ? `<b>${number}</b>` : '';
 		removePencilledFromRelatedSquares(rowIndex, columnIndex, number);
 
 	};
@@ -539,27 +562,29 @@ ________________________________________________________________________________
 				SUDOKU_TABLE[rowIndex].push(square_info);
 
 				// Draw Table
-				const column = document.createElement('div');
-				column.id = getSmallSquareDivId(rowIndex, columnIndex);
-				column.className = getSmallSquareClass(rowIndex, columnIndex);;
-				row.appendChild(column);
+				const square = document.createElement('div');
+				square.id = getSmallSquareDivId(rowIndex, columnIndex);
+				ALL_SQUARES.push(square.id);
+				square.className = getSmallSquareClass(rowIndex, columnIndex);;
+				row.appendChild(square);
 
 				for (int_third_iteration of INTEGERS) {
 					const pencil = document.createElement('div');
 					pencil.className = `pencil pencil-${int_third_iteration}`;
 					pencil.id = getPencilDivId(rowIndex, columnIndex, int_third_iteration);
-					column.appendChild(pencil);
+					square.appendChild(pencil);
 
 					// pencil.innerHTML = int_third_iteration;
 				}
 				// Add value and event listener
 				if (corresponding !== null) {
-					column.innerHTML =  `<b>${corresponding}<b>`;
+					square.innerHTML =  `<b>${corresponding}<b>`;
 				};
 				// TODO REMOVE
-				column.addEventListener('click', () => {
-					const squares = getRelatedSquares(rowIndex, columnIndex);
-					squares.forEach(square => highlightSquare(square));
+				square.addEventListener('click', () => {
+					console.log('click on square', rowIndex, columnIndex);
+					const squareId = getSmallSquareDivId(rowIndex, columnIndex);
+					animateSquare(squareId);
 				})
 
 			};
@@ -739,8 +764,7 @@ ________________________________________________________________________________
 ------------------------------------------------------------------------------------------------------
 */
 
-	const process = async () => {
-		initializeTable();
+	const processSolve = async () => {
 		await new Promise(resolve => setTimeout(resolve, 3000));
 		await new Promise(resolve => setTimeout(resolve, timer * 2));
 		await traverseTreeAndFindPencilled();
@@ -789,4 +813,20 @@ ________________________________________________________________________________
 
 	}
 
-	process();
+	const processSetup = async () => {
+		initializeTable();
+		const fillTableListener = document.addEventListener('keydown', (event) => {
+		  	const blinking = document.getElementsByClassName(BLINK_CLASS);
+		  	if (event.keyCode >= 48 && event.keyCode <= 57 && blinking.length) {
+		  		const number = event.keyCode - 48;
+		  		const [rowId, columnId] = blinking[0].id.split('');
+		  		writePen(rowId, columnId, number);
+		  		removeAnimateSquare(blinking[0].id);
+		  	}
+		});
+		document.getElementById('solve').addEventListener('click', () => {
+			processSolve();
+		})
+	};
+
+	processSetup();
