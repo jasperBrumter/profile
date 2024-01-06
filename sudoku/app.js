@@ -293,7 +293,8 @@ ________________________________________________________________________________
 
 	const grid = document.getElementById('grid');
 	const subtitleDOM = document.getElementById('subtitle');
-
+	const solveButton = document.getElementById('solve');
+	const resetButton = document.getElementById('reset');
 
 /*
 ______________________________________________________________________________________________________
@@ -366,6 +367,12 @@ ________________________________________________________________________________
 		} else {
 			console.log('DEBUG ALREADY PENCILLED', number, rowIndex, columnIndex, SUDOKU_TABLE[rowIndex][columnIndex])
 		}
+		console.log('rowIndex', rowIndex);
+		console.log('columnIndex', columnIndex);
+		console.log('number', number);
+		console.log('getPencilDivId', getPencilDivId(rowIndex, columnIndex, number))
+		console.log('elem', document.getElementById(getPencilDivId(rowIndex, columnIndex, number)));
+
 		document.getElementById(getPencilDivId(rowIndex, columnIndex, number)).innerHTML = number;
 	};
 
@@ -465,9 +472,10 @@ ________________________________________________________________________________
 			pen: number === 0 ? null : number,
 			pencil: [],
 		}
-		document.getElementById(getSmallSquareDivId(rowIndex, columnIndex)).innerHTML = number ? `<b>${number}</b>` : '';
-		removePencilledFromRelatedSquares(rowIndex, columnIndex, number);
-
+		if (number !== 0) {
+			document.getElementById(getSmallSquareDivId(rowIndex, columnIndex)).innerHTML = `<b>${number}</b>`;
+			removePencilledFromRelatedSquares(rowIndex, columnIndex, number);
+		}
 	};
 
 /*
@@ -537,6 +545,7 @@ ________________________________________________________________________________
 	 * @return {void}
 	 */
 	const initializeTable = () => {
+		grid.innerHTML = '';
 		// Create JS table
 		for (int_first_iteration of INTEGERS) {
 			// Add Data
@@ -765,8 +774,7 @@ ________________________________________________________________________________
 */
 
 	const processSolve = async () => {
-		await new Promise(resolve => setTimeout(resolve, 3000));
-		await new Promise(resolve => setTimeout(resolve, timer * 2));
+		await new Promise(resolve => setTimeout(resolve, 200));
 		await traverseTreeAndFindPencilled();
 		setSubtitle('Great!')
 		await new Promise(resolve => setTimeout(resolve, timer * 4));
@@ -810,7 +818,9 @@ ________________________________________________________________________________
 			replacePencilled = await replaceForcedPencilled();
 		}
 
-
+		setSubtitle('Hurrah! We\'re done!');
+		solveButton.classList.remove('hidden');
+		resetButton.classList.remove('hidden');
 	}
 
 	const processSetup = async () => {
@@ -824,9 +834,17 @@ ________________________________________________________________________________
 		  		removeAnimateSquare(blinking[0].id);
 		  	}
 		});
-		document.getElementById('solve').addEventListener('click', () => {
-			processSolve();
-		})
 	};
+
+	solveButton.addEventListener('click', () => {
+		solveButton.classList.add('hidden');
+		resetButton.classList.add('hidden');
+		processSolve();
+	})
+	resetButton.addEventListener('click', () => {
+		solveButton.classList.remove('hidden');
+		resetButton.classList.add('hidden');
+		processSetup();
+	})
 
 	processSetup();

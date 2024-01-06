@@ -13,11 +13,12 @@
 			<center>
 				<h1 class="title"><div>SUD</div><div class="japan"></div><div>KU</div></h1>
 
-				<p id="subtitle">Welcome to the Sudoku Solver</p>
+				<p id="subtitle">Welcome to the Sudoku Solver<br>-<br>Please fill out the grid</p>
 
 				<div id="grid"></div>
 
-				<button id="solve">Solve</button>
+				<button class="button" id="solve">Solve</button>
+				<button class="button hidden" id="reset">Reset</button>
 			</center>
 		</div>
 	</div>
@@ -30,6 +31,9 @@
 </script>
 
 <style>
+	.hidden {
+		display: none !important;
+	}
 	.container {
 		max-width: 600px;
 		margin: 0 auto;
@@ -56,7 +60,7 @@
 		box-sizing:border-box;
 	}
 
-	#solve {
+	.button {
 		margin-top: 30px;
 		height: 30px;
 		width: 360px;
