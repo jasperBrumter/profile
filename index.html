@@ -84,6 +84,7 @@
 				about
 			</code>
 		</h2>
+		<div class="underline mb-10"></div>
 		<p>
 			Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
 		</p>
@@ -92,7 +93,21 @@
 			You can find my CV <a href="https://jasperBrumter.github.io/profile/assets/CV2022FR.pdf" target="_blank">here</a>.
 		</p>
 		<br>
-		<p>
+		<h2 class="mt-30 mb-10">
+			<code>
+				projects
+			</code>
+		</h2>
+		<div class="underline mb-10"></div>
+
+		<div class="projects mt-30">
+			<div class="project">
+				<code>sudoku solver</code>
+				<img src="https://puzzlestream.com/images/blank-sudoku-grid.png"/>
+
+			</div>
+		</div>
+		<p class="mt-30">
 			Work in progress...
 		</p>
 	</div>
@@ -261,8 +276,12 @@ a {
 }
 
 .darkmode .social-links {
-	background-color: rgb(60,60,60);
+	background-color: rgb(200,200,200);
 	transition: .5s;
+}
+
+.darkmode .underline {
+	background-color: white;
 }
 .container {
 	max-width: 100%;
@@ -328,6 +347,12 @@ a {
 .mb-10 {
 	margin-bottom: 10px;
 }
+.mt-30 {
+	margin-top: 30px;
+}
+.mb-30 {
+	margin-bottom: 30px;
+}
 .social-links {
 	background-color: white;
 	padding-left: 5px;
@@ -345,6 +370,31 @@ a {
 #github {
 	width: 37px;
 	height: 37px;
+}
+
+.underline {
+	width: 30px;
+	height: 3px;
+	background-color: black;
+}
+
+.projects {
+	display: flex;
+}
+
+.project {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid gray;
+	border-radius: 2px;
+	height: 200px;
+	width: 150px;
+}
+
+.project img {
+	max-width: 100%;
 }
 
 </style>
