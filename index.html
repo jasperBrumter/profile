@@ -10,7 +10,7 @@
 	<style>
 	/*
 		This style tag contains only the CSS necessary for the first load of the page, the rest is deferred at the end of the body for improved performance.
-		This does not matter too much for a static web page such as this one but makes a difference on larger websites.
+		This does not matter too much for a static web page such as this one, but would make a difference on larger websites.
 	*/
 
 	body {
@@ -35,6 +35,7 @@
 		z-index: 999;
 		background-color: white;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		transition: .5s opacity;
@@ -45,6 +46,7 @@
 <body>
 <div class="firstscreen">
 	<h2><code>Jasper Brumter</code></h2>
+	<div id="name-underline" class="underline mt-30 mb-10"></div>
 </div>
 
 <div class="header hidden">
@@ -79,174 +81,91 @@
 	</div>
 
 	<div class="content">
-		<h2 class="mt-10 mb-10">
-			<code>
-				about
-			</code>
-		</h2>
-		<div class="underline mb-10"></div>
-		<p>
-			Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
-		</p>
-		<br>
-		<p>
-			You can find my CV <a href="https://jasperBrumter.github.io/profile/assets/CV2022FR.pdf" target="_blank">here</a>.
-		</p>
-		<br>
-		<h2 class="mt-30 mb-10">
-			<code>
-				projects
-			</code>
-		</h2>
-		<div class="underline mb-10"></div>
-
-		<div class="projects mt-30">
-			<div class="project">
-				<code>sudoku solver</code>
-				<img src="https://puzzlestream.com/images/blank-sudoku-grid.png"/>
-
+		<div class="section">
+			<h2 class="title mt-10 mb-10">
+				<code>
+					about +
+				</code>
+			</h2>
+			<div class="underline mb-10"></div>
+			<div class="hidden-section">
+				<p>
+					Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
+				</p>
+				<br>
+				<p>
+					You can find my CV <a href="https://jasperBrumter.github.io/profile/assets/CV2022FR.pdf" target="_blank">here</a>.
+				</p>
 			</div>
 		</div>
+		<br>
+
+		<div class="section">
+			<h2 class="title mt-30 mb-10">
+				<code>
+					projects +
+				</code>
+			</h2>
+			<div class="underline mb-10"></div>
+			<div class="hidden-section">
+				<div class="projects mt-30">
+					<div class="project">
+						<code>sudoku solver</code>
+					</div>
+					<div class="project">
+						<code>lumenpulse</code>
+					</div>
+					<div class="project">
+						<code>scrabble</code>
+					</div>
+					<div class="project">
+						<code>scrabble</code>
+					</div>
+					<div class="project">
+						<code>scrabble</code>
+					</div>
+					<div class="project">
+						<code>scrabble</code>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="section">
+			<h2 class="title mt-30 mb-10">
+				<code>
+					stack +
+				</code>
+			</h2>
+			<div class="underline mb-10"></div>
+
+			<div class="hidden-section">
+				<div>
+					JS,
+					HTML,
+					CSS,
+					PHP,
+					Laravel,
+					VueJS,
+					ReactJS,
+					TypeScript,
+					Ruby,
+					Ruby on Rails,
+					REST APIs
+				</div>
+			</div>
+		</div>
+		<br><br><br><br><br>
 		<p class="mt-30">
 			Work in progress...
 		</p>
 	</div>
 </div>
+<br>
+<script src="./portfolio/openingscreen.js"></script>
+<script src="./portfolio/starrysky.js"></script>
+<script src="./portfolio/interactions.js"></script>
 
-<script>
-const header = document.querySelector('.header');
-const body = document.body;
-
-document.addEventListener('DOMContentLoaded', () => {
-	// Fade-out after 1.2s, remove after .5s
-  	setTimeout(function () {
-		document.querySelector('.firstscreen').classList.add('fade');
-		header.classList.remove('hidden');
-		setTimeout(() => {
-			document.querySelector('.firstscreen').classList.add('hidden');
-		}, 500);
-	}, 1200);
-	// For faster development comment replace fade-in speed by uncommenting
-	// 	}, 1);
-	// }, 1);
-});
-
-document.getElementById('darkmode').addEventListener('click', () => {
-	body.classList.toggle('darkmode');
-	header.classList.toggle('darkmode');
-})
-
-	// Set Date
-	const today = new Date();
-	console.log('')
-	const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-	const st = [1, 21, 31];
-	const nd = [2, 22];
-	const rd = [3, 23];
-	const day = today.getDate();
-	let end = 'th';
-	if (st.includes(day)) {
-		end = 'st';
-	} else if (nd.includes(day)) {
-		end = 'nd';
-	} else if (rd.includes(day)) {
-		end = 'rd';
-	}
-	document.getElementById('date')
-		.innerHTML = `${months[today.getMonth()]} ${day}${end} ${today.getFullYear()}`;
-
-	// Adding stars to the sky
-	const sky = document.getElementById('sky');
-	const width = window.innerWidth * 1.5;
-	let numberOfStars = 3000
-	if (width < 1000) {
-		numberOfStars = 1000;
-	} else if (width < 2000) {
-		numberOfStars = 2000;
-	}
-	for (let i = 0; i < numberOfStars; i++) {
-		const star = document.createElement('div');
-		star.className = 'star';
-		star.style.left = `${Math.random() * width}px`;
-		star.style.top = `${Math.random() * width}px`;
-		const color = 100 + Math.floor(Math.random() * 155);
-		const sizeDraw = Math.random() * 100;
-		let size = '1px';
-		if (sizeDraw > 95) {
-			size = '3px';
-		} else if (sizeDraw > 75) {
-			size = '2px';
-		}
-		star.style.backgroundColor = `rgb(${color},${color},${color})`;
-		star.style.height = size;
-		star.style.width = size;
-		sky.appendChild(star);
-	}
-
-
-	// Adding shooting stars
-	for (let i = 0; i < 10; i++) {
-		const shootingStar = document.createElement('div');
-		shootingStar.className = 'shootingStar';
-		shootingStar.style.left = `${-10 + (i / 2)}%`;
-		shootingStar.style.top = `50%`;
-		const sizeDraw = Math.random() * 100;
-		let size = `${i / 3}px`
-		shootingStar.style.backgroundColor = 'rgb(220,220,220)';
-		shootingStar.style.height = size;
-		shootingStar.style.width = size;
-		sky.appendChild(shootingStar);
-	}
-
-	var shootingStars = document.querySelectorAll('.shootingStar');
-	var speedX = 1 + Math.random()
-	var speedY = Math.random()
-
-	// Moving shooting stars
-	setTimeout(function () {
-		for (var i = 0; i < shootingStars.length; i++) {
-			var curPosX = shootingStars[i].style.left;
-			curPosX = curPosX.split('%')[0];
-			curPosX = parseFloat(curPosX) + speedX;
-			curPosX = curPosX.toString() + '%';
-			shootingStars[i].style.left=curPosX;
-			var curPosY = shootingStars[i].style.top;
-			curPosY = curPosY.split('%')[0];
-			curPosY = parseFloat(curPosY) + speedY;
-			curPosY = curPosY.toString() + '%';
-			shootingStars[i].style.top=curPosY;
-		}
-	    setTimeout(arguments.callee, 1);
-	}, 2000);
-
-	// IIFE for randomizing speed
-	(function(){
-		if (Math.random() < .5) {
-			speedY = -1 + Math.random()
-		}
-		else {
-			speedY = Math.random()
-		}
-		if (Math.random() < .5) {
-			var top = (Math.random() * 100)
-			for (var i = 0; i < shootingStars.length; i++) {
-				shootingStars[i].style.left = (-10 +(i/2.0)).toString() + '%';
-				shootingStars[i].style.top = (top + (speedY * i/4)).toString() + '%';
-			}
-			speedX = 1 + Math.random()
-
-		}
-		else {
-			var top = (Math.random() * 100)
-			for (var i = 0; i < shootingStars.length; i++) {
-				shootingStars[i].style.left = (110 -(i/2.0)).toString() + '%';
-				shootingStars[i].style.top = (top + (speedY * i/4)).toString() + '%';
-			}
-			speedX = -2 + Math.random()
-		}
-	    setTimeout(arguments.callee, 2000 + Math.random() * 5000);
-	})();
-</script>
 
 <style>
 /*
@@ -264,6 +183,7 @@ a {
 .icon-link {
 	cursor:pointer;
 }
+
 
 .darkmode {
 	background-color: black !important;
@@ -283,6 +203,14 @@ a {
 .darkmode .underline {
 	background-color: white;
 }
+
+#name-underline {
+	transition: all 1.2s;
+}
+.title {
+	cursor: pointer;
+}
+
 .container {
 	max-width: 100%;
 	width: 800px;
@@ -303,6 +231,7 @@ a {
 	align-items: center;
 	padding: 5px;
 	margin: 0;
+	transition: .3s all;
 }
 
 .header img:hover {
@@ -373,13 +302,41 @@ a {
 }
 
 .underline {
-	width: 30px;
+	width: 40px;
 	height: 3px;
 	background-color: black;
+	transition: all .5s;
 }
 
+.section {
+	transition: all .3s;
+}
+
+.underline-full {
+	width: 100%;
+	transition: all .5s;
+}
+
+.underline-full-name {
+	transition: all 1.2s;
+	width: 200px;
+}
+
+.hidden-section {
+	display: none;
+	transition: all .3s;
+}
+
+.opened {
+	display: block;
+}
 .projects {
 	display: flex;
+	flex-wrap: wrap;
+
+	border: 1px solid gray;
+	border-radius: 2px;
+	padding: 5px;
 }
 
 .project {
@@ -389,12 +346,24 @@ a {
 	justify-content: center;
 	border: 1px solid gray;
 	border-radius: 2px;
-	height: 200px;
-	width: 150px;
+	height: 80px;
+	flex: 1 0 200px;
+	cursor: pointer;
+	margin: 3px;
+	transition: font .2s smooth;
 }
 
-.project img {
-	max-width: 100%;
+.project:hover {
+	background-color: rgba(210,210,210,.1);
+	width: 100%;
+}
+
+.project code {
+	transition: text-decoration .2s smooth;
+}
+
+.project:hover code {
+	text-decoration: underline;
 }
 
 </style>
