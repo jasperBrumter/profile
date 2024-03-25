@@ -56,6 +56,7 @@ ________________________________________________________________________________
 		[null,null,null,6,null,4,8,null,null],
 	];
 
+	// done
 	const hard_entries = [
 		[null,6,null,null,null,1,null,null,4],
 		[3,null,null,null,null,null,5,2,null],
@@ -68,6 +69,8 @@ ________________________________________________________________________________
 		[1,null,null,null,9,2,7,null,null],
 	];
 
+	// not done after swordfish and xwings
+	// done after find pairs
 	const hard_entries_two = [
 		[null,7,null,null,null,null,6,null,null],
 		[null,null,8,null,null,null,null,4,1],
@@ -104,21 +107,60 @@ ________________________________________________________________________________
 		[null,null,1,null,4,7,6,null,null],
 	];
 
-	const empty_entry = [
+	const swordfish_entries = [
+		[1,9,5,3,6,7,2,4,8],
+		[null,7,8,null,5,null,3,6,9],
+		[3,null,6,null,9,8,1,5,7],
+		[null,null,3,7,8,null,5,9,null],
+		[7,null,9,null,null,5,null,null,6],
+		[5,8,4,9,null,6,7,1,null],
+		[8,3,2,5,4,9,6,7,1],
+		[9,null,7,null,1,3,null,2,5],
+		[null,5,1,null,7,2,9,null,null],
+	]
+
+	const plane_entry = [
+		[7,null,1,null,null,null,null,9,null],
+		[8,null,9,null,null,1,null,3,null],
+		[null,null,2,8,null,7,null,5,null],
+		[5,2,3,null,null,9,null,null,null],
 		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
-		[null,null,null,null,null,null,null,null,null],
+		[null,null,null,5,null,null,9,2,3],
+		[null,8,null,9,null,5,2,null,null],
+		[null,1,null,2,null,null,8,null,5],
+		[null,7,null,null,null,null,3,null,9],
 	];
 
-	const USED_ENTRIES = empty_entry;
+	// Cracked after findPairs
+	const cracking_entry = [
+		[null,null,1,2,null,3,4,null,null],
+		[null,null,null,6,null,7,null,null,null],
+		[5,null,null,null,null,null,null,null,3],
+		[3,7,null,null,null,null,null,8,1],
+		[null,null,null,null,null,null,null,null,null],
+		[6,2,null,null,null,null,null,3,7],
+		[1,null,null,null,null,null,null,null,8],
+		[null,null,null,8,null,5,null,null,null],
+		[null,null,6,4,null,2,5,null,null],
+	];
 
-	const timer = 30;
+	const empty_entry = [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+	];
+
+	const USED_ENTRIES = cracking_entry;
+
+	const timer = 1;
+	const highlightTimer = timer;
+	// const highlightTimer = 2000;
 
 
 
@@ -136,11 +178,8 @@ ________________________________________________________________________________
 	const BLOCKS = [1,2,3];
 	const INTEGERS = [1,2,3,4,5,6,7,8,9];
 
-	let ALL_SQUARES = [];
-
 	const HIGHLIGHT_CLASS = 'highlight';
 	const SECONDARY_HIGHLIGHT_CLASS = 'secondary-highlight';
-	const BLINK_CLASS = 'blink-highlight';
 
 
 
@@ -195,6 +234,11 @@ ________________________________________________________________________________
 		return INTEGERS.map(int => `${int - 1}${columnIndex}`)
 	};
 
+	const getLargeSquareByIndex = (index) => {
+		const rowIndex = Math.floor((index) / 3);
+		const columnIndex = Math.floor((index) % 3);
+		return getLargeSquareRelatives(rowIndex * 3, columnIndex * 3);
+	}
 	/*
 	 * Array of small square custom IDs that are either in same Large Square, column or row
 	 *
@@ -234,7 +278,7 @@ ________________________________________________________________________________
 		} else if (rowIndex === 8) {
 			squareClass += ' border-bottom';
 		}
-		// Vertical Lines
+		// Horizontal Lines
 		if (columnIndex % 3 === 0) {
 			squareClass += ' border-left';
 		} else if (columnIndex === 8) {
@@ -279,6 +323,7 @@ ________________________________________________________________________________
 	const getPencilledCells = (squareIds, number) => {
 		return squareIds.filter(squareId => {
 			const [squareRow, squareColumn] = squareId.split('');
+			// console.log(squareId, SUDOKU_TABLE[squareRow][squareColumn])
 			return SUDOKU_TABLE[squareRow][squareColumn].pencil.includes(number);
 		})
 	}
@@ -293,8 +338,7 @@ ________________________________________________________________________________
 
 	const grid = document.getElementById('grid');
 	const subtitleDOM = document.getElementById('subtitle');
-	const solveButton = document.getElementById('solve');
-	const resetButton = document.getElementById('reset');
+
 
 /*
 ______________________________________________________________________________________________________
@@ -329,26 +373,7 @@ ________________________________________________________________________________
 		setTimeout(() => {
 			square.classList.remove(HIGHLIGHT_CLASS);
 			square.classList.remove(SECONDARY_HIGHLIGHT_CLASS);
-		}, timer);
-	}
-
-	const removeAnimateSquare = (squareId) => {
-		const square = document.getElementById(squareId);
-		square.classList.remove(BLINK_CLASS);
-	}
-	/*
-	 * Add temporary highlighted class
-	 *
-	 * @prop {String} subtitle    - the new subtitle
-	 *
-	 * @return {void}
-	 */
-	const animateSquare = (squareId) => {
-		const square = document.getElementById(squareId);
-		ALL_SQUARES.forEach(otherSquare => {
-			removeAnimateSquare(otherSquare);
-		})
-		square.classList.add(BLINK_CLASS);
+		}, highlightTimer);
 	}
 
 	/*
@@ -364,8 +389,9 @@ ________________________________________________________________________________
 		const currentPencilled = SUDOKU_TABLE[rowIndex][columnIndex].pencil;
 		if (!currentPencilled.includes(number)) {
 			currentPencilled.push(number)
+		} else {
+			console.log('DEBUG ALREADY PENCILLED', number, rowIndex, columnIndex, SUDOKU_TABLE[rowIndex][columnIndex])
 		}
-
 		document.getElementById(getPencilDivId(rowIndex, columnIndex, number)).innerHTML = number;
 	};
 
@@ -404,6 +430,51 @@ ________________________________________________________________________________
 			const [squareRow, squareColumn] = square.split('');
 			removePencilled(squareRow, squareColumn, number);
 		})
+	};
+
+	/*
+	 * Remove pencilled from an entire row except squareIds passed as argument
+	 *
+	 * @prop {String[]}  cellsToRemove   - array of square IDs that should remove the pencilled number
+	 * @prop {String[]}  cellsToKeep     - array of square IDs that should keep the pencilled number
+	 * @prop {Number}    number          - the number that is being removed
+	 *
+	 * @return {Boolean} did we have to remove a pencil or was action uneffective
+	 */
+	const removePencilledFromRestOfCells = (cellsToRemove, cellsToKeep, number) => {
+		let hasChanged = false;
+		cellsToRemove.forEach(cell => {
+			const [rowIndex, columnIndex] = cell.split('');
+			if (!cellsToKeep.includes(cell) && SUDOKU_TABLE[rowIndex][columnIndex].pencil.includes(number)) {
+				hasChanged = true;
+				console.log('REMOVING PENCILLED, removePencilledFromRestOfCells', number, 'from square', squareId);
+				removePencilled(rowIndex, columnIndex, number);
+			}
+		})
+		return hasChanged;
+	};
+
+		/*
+	 * Remove pencilled from an entire row except squareIds passed as argument
+	 *
+	 * @prop {String[]}  cellsToRemove   - array of square IDs that should remove the pencilled number
+	 * @prop {Number[]}  numbersToKeep   - the number that is being removed
+	 *
+	 * @return {Boolean} did we have to remove a pencil or was action uneffective
+	 */
+	const removeOtherPencilledFromCells = (cellsToRemove, numbersToKeep) => {
+		let hasChanged = false;
+		cellsToRemove.forEach(cell => {
+			const [rowIndex, columnIndex] = cell.split('');
+			const currentPencilled = SUDOKU_TABLE[rowIndex][columnIndex].pencil || [];
+			const otherPencilled = currentPencilled.filter(number => !numbersToKeep.includes(number));
+			otherPencilled.forEach(pencilled => {
+				hasChanged = true;
+				console.log('removeOtherPencilledFromCells', pencilled, 'from square', cell);
+				removePencilled(rowIndex, columnIndex, pencilled);
+			})
+		})
+		return hasChanged;
 	};
 
 	/*
@@ -461,40 +532,14 @@ ________________________________________________________________________________
 	 */
 	const writePen = (rowIndex, columnIndex, number) => {
 		SUDOKU_TABLE[rowIndex][columnIndex] = {
-			pen: number === 0 ? null : number,
+			pen: number,
 			pencil: [],
 		}
-		if (number !== 0) {
-			document.getElementById(getSmallSquareDivId(rowIndex, columnIndex)).innerHTML = `<b>${number}</b>`;
-			removePencilledFromRelatedSquares(rowIndex, columnIndex, number);
-		} else {
+		document.getElementById(getSmallSquareDivId(rowIndex, columnIndex)).innerHTML = `<b>${number}</b>`;
+		removePencilledFromRelatedSquares(rowIndex, columnIndex, number);
 
-		}
 	};
 
-	/*
-	 * Remove pen number in specific square - only useful in case of bad input from user
-	 *
-	 * @prop {Number} rowIndex      - index of row
-	 * @prop {Number} columnIndex   - index of column
-	 * @prop {Number} number        - the number being penned
-	 *
-	 * @return {void}
-	 */
-	const removePen = (rowIndex, columnIndex, number) => {
-		SUDOKU_TABLE[rowIndex][columnIndex] = {
-			pen: null,
-			pencil: [],
-		}
-		const square = document.getElementById(getSmallSquareDivId(rowIndex, columnIndex));
-		square.innerHTML = '';
-		for (int_first_iteration of INTEGERS) {
-			const pencil = document.createElement('div');
-			pencil.className = `pencil pencil-${int_first_iteration}`;
-			pencil.id = getPencilDivId(rowIndex, columnIndex, int_first_iteration);
-			square.appendChild(pencil);
-		}
-	};
 /*
 ______________________________________________________________________________________________________
 ------------------------------------------------------------------------------------------------------
@@ -547,6 +592,22 @@ ________________________________________________________________________________
 			: null;
 	};
 
+	/*
+	 * Check if array of {['rowId,columnId', 'rowId2,columnId2'...]}
+	 * has an element that has number at position 0 for row, position 1 for column
+	 *
+	 * @prop {String[]}  squareIds   - array of square IDs
+	 * @prop {Number}    position    - the number that is being searched
+	 * @prop {String}    number      - the number that is being searched
+	 *
+	 * @return {Boolean} is number present in any element of array at that position
+	 */
+	const arrayHasSwordfishElement = (array, position, number) => {
+		return array.filter(element => {
+			const split = element.split(',');
+			return split[position] === number;
+		})
+	}
 /*
 ______________________________________________________________________________________________________
 ------------------------------------------------------------------------------------------------------
@@ -556,19 +617,12 @@ ________________________________________________________________________________
 */
 
 
-	const mobileAndTabletCheck = () => {
-	  let check = false;
-	  (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
-	  return check;
-	};
-
 	/*
 	 * Modify DOM grid element with entries
 	 *
 	 * @return {void}
 	 */
 	const initializeTable = () => {
-		grid.innerHTML = '';
 		// Create JS table
 		for (int_first_iteration of INTEGERS) {
 			// Add Data
@@ -594,44 +648,35 @@ ________________________________________________________________________________
 				SUDOKU_TABLE[rowIndex].push(square_info);
 
 				// Draw Table
-				const square = document.createElement('div');
-				square.id = getSmallSquareDivId(rowIndex, columnIndex);
-				ALL_SQUARES.push(square.id);
-				square.className = getSmallSquareClass(rowIndex, columnIndex);;
-				row.appendChild(square);
+				const column = document.createElement('div');
+				column.id = getSmallSquareDivId(rowIndex, columnIndex);
+				column.className = getSmallSquareClass(rowIndex, columnIndex);;
+				row.appendChild(column);
 
 				for (int_third_iteration of INTEGERS) {
 					const pencil = document.createElement('div');
 					pencil.className = `pencil pencil-${int_third_iteration}`;
 					pencil.id = getPencilDivId(rowIndex, columnIndex, int_third_iteration);
-					square.appendChild(pencil);
+					column.appendChild(pencil);
 
 					// pencil.innerHTML = int_third_iteration;
 				}
 				// Add value and event listener
 				if (corresponding !== null) {
-					square.innerHTML =  `<b>${corresponding}<b>`;
+					column.innerHTML =  `<b>${corresponding}<b>`;
 				};
 				// TODO REMOVE
-				square.addEventListener('click', () => {
-					const isMobile = mobileAndTabletCheck();
-					const squareId = getSmallSquareDivId(rowIndex, columnIndex);
-					animateSquare(squareId);
-					if (isMobile) {
-						const number = prompt("Please enter digit 1-9");
-						if (number >= 1 && number <= 9) {
-							writePen(rowIndex, columnIndex, number);
-						} else if (number == 0) {
-							removePen(rowIndex, columnIndex, number);
-						}
-		  				removeAnimateSquare(squareId);
-					}
+				column.addEventListener('click', () => {
+					const squares = getRelatedSquares(rowIndex, columnIndex);
+					squares.forEach(square => highlightSquare(square));
 				})
 
 			};
 		};
 	}
 	
+	console.log('SUDOKU_TABLE', SUDOKU_TABLE);
+
 
 
 	const traverseTreeAndFindPencilled = async () => {
@@ -662,6 +707,7 @@ ________________________________________________________________________________
 
 	const replaceForcedPencilled =  async () => {
 		let hasChanged = false
+		console.log('SUDOKU_TABLE', SUDOKU_TABLE)
 		for (int_first_iteration of INTEGERS) {
 			const rowIndex = int_first_iteration - 1;
 			for (int_second_iteration of INTEGERS) {
@@ -752,44 +798,157 @@ ________________________________________________________________________________
 	const findXWings = async () => {
 		let hasChanged = false;
 		for (possible_entry of INTEGERS) {
-			const foundPositionsRows = {};
-			const foundPositionsColumns = {};
+			const foundTwoPositionsRows = {};
+			const foundTwoPositionsColumns = {};
+
 			for (row_column_iteration of INTEGERS) {
 				const rowIndex = row_column_iteration - 1;
 				const rowCells = getRowRelatives(rowIndex);
 				const pencilledInRow = getPencilledCells(rowCells, possible_entry);
 				if (pencilledInRow.length === 2) {
 					const rowPositions = pencilledInRow.map(entry => entry[1]).join(',');
-					if (!Object.keys(foundPositionsRows).includes(rowPositions)) {
-						foundPositionsRows[rowPositions] = rowIndex;
+					if (!Object.keys(foundTwoPositionsRows).includes(rowPositions)) {
+						foundTwoPositionsRows[rowPositions] = rowIndex;
 					} else {
-						const firstRowFound = foundPositionsRows[rowPositions];
+						const firstRowFound = foundTwoPositionsRows[rowPositions];
 						pencilledInRow.forEach(cell => {
 							const actionChanged = removePencilledFromRestOfColumn([`${firstRowFound}${cell[1]}`, cell], possible_entry);
 							if (actionChanged) {
 								hasChanged = true;
 							}
 						})
-						// const [`${rowPositions}`]
-						// removePencilledFromRestOfColumn()
 					}
 				}
 
 
+				// Treat columns
 				const columnIndex = row_column_iteration - 1;
 				const columnCells = getColumnRelatives(columnIndex);
 				const pencilledInColumn = getPencilledCells(columnCells, possible_entry);
 				if (pencilledInColumn.length === 2) {
-
 					const columnPositions = pencilledInColumn.map(entry => entry[0]).join(',');
-					if (!Object.keys(foundPositionsColumns).includes(columnPositions)) {
-						foundPositionsColumns[columnPositions] = columnIndex;
+					if (!Object.keys(foundTwoPositionsColumns).includes(columnPositions)) {
+						foundTwoPositionsColumns[columnPositions] = columnIndex;
 					} else {
-						console.log(`FOUND TWO same positions for number ${possible_entry} - ${columnPositions}, first column is ${foundPositionsColumns[columnPositions]}, second column is ${columnIndex}`)
+						const firstColumnFound = foundTwoPositionsColumns[columnPositions];
+						pencilledInColumn.forEach(cell => {
+							const actionChanged = removePencilledFromRestOfRow([`${cell[0]}${firstColumnFound}`, cell], possible_entry);
+							if (actionChanged) {
+								hasChanged = true;
+							}
+						})
+					}
+				}
+			}
+
+			// At the end of iteration, find swordfish for rows
+			console.log('for entry', possible_entry, 'foundTwoPositionsRows is', foundTwoPositionsRows )
+			const rowsWithTwoCandidatesFound = Object.keys(foundTwoPositionsRows);
+			if (rowsWithTwoCandidatesFound.length >= 3) {
+				for (let i = 0; i < rowsWithTwoCandidatesFound.length; i++) {
+					const entry = rowsWithTwoCandidatesFound[i];
+					const firstRow = foundTwoPositionsRows[entry];
+					const [firstColumnOne, firstColumnTwo] = entry.split(',');
+					const otherEntries = rowsWithTwoCandidatesFound.filter(each => each !== entry);
+					const hasMutualFirstColumn = arrayHasSwordfishElement(otherEntries, 0, firstColumnOne);
+					console.log('hasMutualFirstColumn', entry, hasMutualFirstColumn);
+					for (let j = 0; j < hasMutualFirstColumn.length; j++) {
+						const secondEntry = hasMutualFirstColumn[j];
+						const secondRow = foundTwoPositionsRows[secondEntry];
+						const [secondColumnOne, secondColumnTwo] = secondEntry.split(',');
+						const secondOtherEntries = rowsWithTwoCandidatesFound.filter(each => ![entry, secondEntry].includes(each));
+						const hasMutualSecondColumn = arrayHasSwordfishElement(secondOtherEntries, 1, secondColumnTwo);
+
+						for (let k = 0; k < hasMutualSecondColumn.length; k++) {
+							const thirdEntry = hasMutualSecondColumn[k];
+							const thirdRow = foundTwoPositionsRows[thirdEntry];
+							const [thirdColumnOne, thirdColumnTwo] = thirdEntry.split(',');
+							if (thirdColumnOne === firstColumnTwo) {
+								console.log('SWORDFISH FOUND FOR ROWS ', firstRow, secondRow, thirdRow, 'number is', possible_entry);
+								const firstActionChanged = removePencilledFromRestOfColumn([`${firstRow}${firstColumnOne}`, `${secondRow}${secondColumnOne}`], possible_entry);
+								const secondActionChanged = removePencilledFromRestOfColumn([`${secondRow}${secondColumnTwo}`, `${thirdRow}${thirdColumnTwo}`], possible_entry);
+								const thirdActionChanged = removePencilledFromRestOfColumn([`${thirdRow}${thirdColumnOne}`, `${firstRow}${firstColumnTwo}`], possible_entry);
+								if (firstActionChanged || secondActionChanged || thirdActionChanged) {
+									hasChanged = true;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// At the end of iteration, find swordfish for columns
+			console.log('for entry', possible_entry, 'foundTwoPositionsColumns is', foundTwoPositionsColumns )
+			const columnsWithTwoCandidatesFound = Object.keys(foundTwoPositionsColumns);
+			if (columnsWithTwoCandidatesFound.length >= 3) {
+				for (let i = 0; i < columnsWithTwoCandidatesFound.length; i++) {
+					const entry = columnsWithTwoCandidatesFound[i];
+					const firstColumn = foundTwoPositionsColumns[entry];
+					const [firstRowOne, firstRowTwo] = entry.split(',');
+					const otherEntries = columnsWithTwoCandidatesFound.filter(each => each !== entry);
+					const hasMutualFirstRow = arrayHasSwordfishElement(otherEntries, 0, firstRowOne);
+					console.log('hasMutualFirstRow', entry, hasMutualFirstRow);
+					for (let j = 0; j < hasMutualFirstRow.length; j++) {
+						const secondEntry = hasMutualFirstRow[j];
+						const secondColumn = foundTwoPositionsColumns[secondEntry];
+						const [secondRowOne, secondRowTwo] = secondEntry.split(',');
+						const secondOtherEntries = columnsWithTwoCandidatesFound.filter(each => ![entry, secondEntry].includes(each));
+						const hasMutualSecondRow = arrayHasSwordfishElement(secondOtherEntries, 1, secondRowTwo);
+
+						for (let k = 0; k < hasMutualSecondRow.length; k++) {
+							const thirdEntry = hasMutualSecondRow[k];
+							const thirdColumn = foundTwoPositionsColumns[thirdEntry];
+							const [thirdRowOne, thirdRowTwo] = thirdEntry.split(',');
+							if (thirdRowOne === firstRowTwo) {
+								console.log('SWORDFISH FOUND FOR COLUMNS ', firstColumn, secondColumn, thirdColumn, 'number is', possible_entry);
+								const firstActionChanged = removePencilledFromRestOfRow([`${firstColumn}${firstRowOne}`, `${secondColumn}${secondRowOne}`], possible_entry);
+								const secondActionChanged = removePencilledFromRestOfRow([`${secondColumn}${secondRowTwo}`, `${thirdColumn}${thirdRowTwo}`], possible_entry);
+								const thirdActionChanged = removePencilledFromRestOfRow([`${thirdColumn}${thirdRowOne}`, `${firstColumn}${firstRowTwo}`], possible_entry);
+								if (firstActionChanged || secondActionChanged || thirdActionChanged) {
+									hasChanged = true;
+								}
+							}
+						}
 					}
 				}
 			}
 		}
+	}
+
+	// Pairs are two separate squares either in the same large-square, or in the same row/column
+	// that are the only squares with pencilled x,y in that LargeSquare/Row/Column
+	const findPairs = async () => {
+		for (possible_entry of INTEGERS) {
+			const index = possible_entry - 1;
+			const largeSquareSquareIds = getLargeSquareByIndex(index);
+			eliminatePencilledBecauseOfPairs(largeSquareSquareIds);
+			const rowSquareIds = getRowRelatives(index);
+			eliminatePencilledBecauseOfPairs(rowSquareIds);
+			const columnSquareIds = getColumnRelatives(index);
+			eliminatePencilledBecauseOfPairs(columnSquareIds);
+		}
+	}
+
+	const eliminatePencilledBecauseOfPairs = async (arrayOfSquares) => {
+		const results = {};
+		for (possible_entry of INTEGERS) {
+			const integerIsPencilledInSquares = getPencilledCells(arrayOfSquares, possible_entry);
+			if (integerIsPencilledInSquares.length === 2) {
+				results[possible_entry] = integerIsPencilledInSquares;
+			}
+		}
+		Object.entries(results).forEach(([key, value]) => {
+			const foundInOther = Object.entries(results).find(([secondKey, secondValue])=> {
+				return secondKey !== key && JSON.stringify(value) == JSON.stringify(secondValue);
+			});
+			if (foundInOther) {
+				const numbersToKeep = [Number(key), Number(foundInOther[0])];
+				const squaresToRemoveFrom = foundInOther[1];
+				removePencilledFromRestOfCells(arrayOfSquares, value, Number(key));
+				removeOtherPencilledFromCells(squaresToRemoveFrom, numbersToKeep);
+
+			}
+		})
 	}
 /*
 ______________________________________________________________________________________________________
@@ -799,13 +958,16 @@ ________________________________________________________________________________
 ------------------------------------------------------------------------------------------------------
 */
 
-	const processSolve = async () => {
-		await new Promise(resolve => setTimeout(resolve, 200));
+	const process = async () => {
+		initializeTable();
+		await new Promise(resolve => setTimeout(resolve, timer * 2));
 		await traverseTreeAndFindPencilled();
 		setSubtitle('Great!')
 		await new Promise(resolve => setTimeout(resolve, timer * 4));
 		setSubtitle('Now we\'ll replace the squares that only have a single pencilled value')
 		await new Promise(resolve => setTimeout(resolve, timer * 6));
+
+
 		let replacePencilled = true;
 		while (replacePencilled) {
 			replacePencilled = await replaceForcedPencilled();
@@ -823,61 +985,34 @@ ________________________________________________________________________________
 		}
 		await cleanUpPencilled()
 
-		// await new Promise(resolve => setTimeout(resolve, 4000));
-		// removePencilled(6,4,8);
-		// removePencilled(6,5,8);
+		await new Promise(resolve => setTimeout(resolve, 200));
 
 
-		// await new Promise(resolve => setTimeout(resolve, 6000));
 
-		// await cleanUpPencilled()
-		// replacePencilled = true;
-		// while (replacePencilled) {
-		// 	replacePencilled = await replaceForcedPencilled();
-		// }
-
+		await findPairs();
 
 		await findXWings();
+
+		await new Promise(resolve => setTimeout(resolve, timer * 10));
 
 		replacePencilled = true;
 		while (replacePencilled) {
 			replacePencilled = await replaceForcedPencilled();
 		}
+		await cleanUpPencilled()
 
-		setSubtitle('Hurrah! We\'re done!');
-		solveButton.classList.remove('hidden');
-		resetButton.classList.remove('hidden');
+
+		await findPairs();
+
+		await findXWings();
+
+		await new Promise(resolve => setTimeout(resolve, timer * 10));
+
+		replacePencilled = true;
+		while (replacePencilled) {
+			replacePencilled = await replaceForcedPencilled();
+		}
+		await cleanUpPencilled()
 	}
 
-	const processSetup = async () => {
-		initializeTable();
-		const isMobile = mobileAndTabletCheck();
-		if (!isMobile) {
-			const fillTableListener = document.addEventListener('keydown', (event) => {
-			  	const blinking = document.getElementsByClassName(BLINK_CLASS);
-			  	if (event.keyCode >= 49 && event.keyCode <= 57 && blinking.length) {
-			  		const number = event.keyCode - 48;
-			  		const [rowId, columnId] = blinking[0].id.split('');
-			  		writePen(rowId, columnId, number);
-			  		removeAnimateSquare(blinking[0].id);
-			  	} else if (event.keyCode == 48 && blinking.length) {
-			  		const [rowId, columnId] = blinking[0].id.split('');
-			  		removePen(rowId, columnId, 0);
-			  		removeAnimateSquare(blinking[0].id);
-			  	}
-			});
-		}
-	};
-
-	solveButton.addEventListener('click', () => {
-		solveButton.classList.add('hidden');
-		resetButton.classList.add('hidden');
-		processSolve();
-	})
-	resetButton.addEventListener('click', () => {
-		solveButton.classList.remove('hidden');
-		resetButton.classList.add('hidden');
-		processSetup();
-	})
-
-	processSetup();
+	process();
