@@ -70,8 +70,12 @@
 	</div>
 </div>
 
-<div class="sky" id="sky">
-</div>
+<!--
+	The sky used to be thousands of <div>s (one per star), which was heavy on phones.
+	It is now drawn on a single <canvas>; the legacy DOM version is kept, commented out,
+	at the bottom of portfolio/starrysky.js along with the reasons for the change.
+-->
+<canvas class="sky" id="sky"></canvas>
 
 <div class="container">
 	<div class="subtitle">
@@ -84,13 +88,13 @@
 		<div class="section">
 			<h2 class="title mt-10 mb-10">
 				<code>
-					about +
+					about
 				</code>
 			</h2>
 			<div class="underline mb-10"></div>
-			<div class="hidden-section">
+			<div>
 				<p>
-					Hello, my name is Jasper and I am web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
+					Hello, my name is Jasper and I am a web developer currently working for <a href="https://lmpg.com" target="_blank">Lumenpulse Group</a> in Montreal, Canada. I like to have fun with <code>Javascript</code> and enjoy problem-solving.
 				</p>
 				<br>
 				<p>
@@ -103,30 +107,199 @@
 		<div class="section">
 			<h2 class="title mt-30 mb-10">
 				<code>
-					projects +
+					professional work
 				</code>
 			</h2>
 			<div class="underline mb-10"></div>
-			<div class="hidden-section">
-				<div class="projects mt-30">
-					<div class="project">
-						<code>sudoku solver</code>
-					</div>
-					<div class="project">
-						<code>lumenpulse</code>
-					</div>
-					<div class="project">
-						<code>scrabble</code>
-					</div>
-					<div class="project">
-						<code>scrabble</code>
-					</div>
-					<div class="project">
-						<code>scrabble</code>
-					</div>
-					<div class="project">
-						<code>scrabble</code>
-					</div>
+			<div>
+				<div class="projects mt-10">
+					<article class="project">
+						<img class="project-image" src="./assets/logos/lmpg.png" alt="LMPG logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://lmpg.com" target="_blank">LMPG</a></h3>
+								<span class="project-year">2018 – present</span>
+							</div>
+							<p class="project-description">Corporate site for LMPG Inc., the group behind specification-grade LED lighting brands.</p>
+							<div class="project-tags">
+								<span class="project-tag">lmpg.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/lumenpulse.png" alt="Lumenpulse logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://lumenpulse.com" target="_blank">Lumenpulse</a></h3>
+								<span class="project-year">2018 – present</span>
+							</div>
+							<p class="project-description">High-performance architectural LED lighting for commercial, institutional and urban spaces.</p>
+							<div class="project-tags">
+								<span class="project-tag">lumenpulse.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/vode.png" alt="Vode logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://vode.com" target="_blank">Vode Lighting</a></h3>
+								<span class="project-year">2023 – present</span>
+							</div>
+							<p class="project-description">Adaptive architectural lighting systems designed with architects and designers.</p>
+							<div class="project-tags">
+								<span class="project-tag">vode.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/fluxwerx.png" alt="Fluxwerx logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://fluxwerx.com" target="_blank">Fluxwerx</a></h3>
+								<span class="project-year">2018 – present</span>
+							</div>
+							<p class="project-description">Industrial design, optical engineering and LED technology in one lighting brand.</p>
+							<div class="project-tags">
+								<span class="project-tag">fluxwerx.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/paco.png" alt="Pa-Co Lighting logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://pacolighting.com" target="_blank">Pa-Co Lighting</a></h3>
+								<span class="project-year">2022 – present</span>
+							</div>
+							<p class="project-description">Customized lighting products delivered with short lead times.</p>
+							<div class="project-tags">
+								<span class="project-tag">pacolighting.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/alw.png" alt="ALW logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://alw-inc.com" target="_blank">ALW</a></h3>
+								<span class="project-year">2023 – present</span>
+							</div>
+							<p class="project-description">Architectural lighting solutions. "Illuminate the Soul."</p>
+							<div class="project-tags">
+								<span class="project-tag">alw-inc.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/sternberg.png" alt="Sternberg logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://www.sternberglighting.com" target="_blank">Sternberg</a></h3>
+								<span class="project-year">2018 – present</span>
+							</div>
+							<p class="project-description">Outdoor, urban and traditional lighting for municipal, landscape, campus and commercial projects.</p>
+							<div class="project-tags">
+								<span class="project-tag">sternberglighting.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/lumca.png" alt="Lumca logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://www.lumca.com" target="_blank">Lumca</a></h3>
+								<span class="project-year">2023 – present</span>
+							</div>
+							<p class="project-description">Outdoor and urban lighting solutions, designed and manufactured with a focus on performance.</p>
+							<div class="project-tags">
+								<span class="project-tag">lumca.com ↗</span>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/logos/tlw.png" alt="Toronto LightWorks logo" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://www.torontolightworks.com" target="_blank">Toronto LightWorks</a></h3>
+								<span class="project-year">2023 – present</span>
+							</div>
+							<p class="project-description">Lighting solutions backed by expert knowledge and service.</p>
+							<div class="project-tags">
+								<span class="project-tag">torontolightworks.com ↗</span>
+							</div>
+						</div>
+					</article>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="section">
+			<h2 class="title mt-30 mb-10">
+				<code>
+					projects
+				</code>
+			</h2>
+			<div class="underline mb-10"></div>
+			<div>
+				<div class="projects mt-10">
+					<article class="project">
+						<img class="project-image" src="./assets/project-placeholder.svg" alt="" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="./projects/sudoku.html">Sudoku solver</a></h3>
+								<span class="project-year">2023 – 2024</span>
+							</div>
+							<p class="project-description">Fill in any grid and let a vanilla JS solver finish it. Playable on mobile.</p>
+							<div class="project-footer">
+								<div class="project-tags">
+									<span class="project-tag">JavaScript</span>
+									<span class="project-tag">Algorithms</span>
+								</div>
+								<a class="project-github" href="https://github.com/jasperBrumter/profile" target="_blank" aria-label="profile on GitHub" title="View on GitHub">
+									<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/project-placeholder.svg" alt="" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://github.com/jasperBrumter/vue-docs" target="_blank">Vue Docs</a></h3>
+								<span class="project-year">2022</span>
+							</div>
+							<p class="project-description">Documentation site built with Vue and TypeScript.</p>
+							<div class="project-footer">
+								<div class="project-tags">
+									<span class="project-tag">VueJS</span>
+									<span class="project-tag">TypeScript</span>
+								</div>
+								<a class="project-github" href="https://github.com/jasperBrumter/vue-docs" target="_blank" aria-label="vue-docs on GitHub" title="View on GitHub">
+									<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/project-placeholder.svg" alt="" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://github.com/jasperBrumter/scrabble" target="_blank">Scrabble</a></h3>
+								<span class="project-year">2019</span>
+							</div>
+							<p class="project-description">Description coming soon.</p>
+							<div class="project-footer">
+								<div class="project-tags">
+									<span class="project-tag">Ruby</span>
+								</div>
+								<a class="project-github" href="https://github.com/jasperBrumter/scrabble" target="_blank" aria-label="scrabble on GitHub" title="View on GitHub">
+									<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
 				</div>
 			</div>
 		</div>
@@ -134,31 +307,136 @@
 		<div class="section">
 			<h2 class="title mt-30 mb-10">
 				<code>
-					stack +
+					partnered with AI
+				</code>
+			</h2>
+			<div class="underline mb-10"></div>
+			<div>
+				<div class="projects mt-10">
+					<article class="project">
+						<img class="project-image" src="./assets/projects/bbc-unlock.png" alt="BBC Scroll Unlock page" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://jasperbrumter.github.io/bbc-unlock/" target="_blank">BBC unlock</a></h3>
+								<span class="project-year">2026</span>
+							</div>
+							<p class="project-description">Chrome extension that removes the scroll-block on BBC News articles.</p>
+							<div class="project-footer">
+								<div class="project-tags">
+									<span class="project-tag">Chrome extension</span>
+									<span class="project-tag">JavaScript</span>
+								</div>
+								<a class="project-github" href="https://github.com/jasperBrumter/bbc-unlock" target="_blank" aria-label="bbc-unlock on GitHub" title="View on GitHub">
+									<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/projects/tour-gpx.png" alt="Tour to GPX preview" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://jasperbrumter.github.io/tour-gpx/" target="_blank">Komoot to GPX</a></h3>
+								<span class="project-year">2026</span>
+							</div>
+							<p class="project-description">Paste a Komoot tour link and download the full track as a GPX file. Nothing is stored.</p>
+							<div class="project-footer">
+								<div class="project-tags">
+									<span class="project-tag">JavaScript</span>
+								</div>
+								<a class="project-github" href="https://github.com/jasperBrumter/tour-gpx" target="_blank" aria-label="tour-gpx on GitHub" title="View on GitHub">
+									<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
+					<article class="project">
+						<img class="project-image" src="./assets/projects/velofix.png" alt="VéloFix home page" loading="lazy">
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title"><a class="project-link" href="https://velofix.fly.dev/" target="_blank">VéloFix</a></h3>
+								<span class="project-year">2026</span>
+							</div>
+							<p class="project-description">Home bicycle-repair service in Montreal: describe the issue, send photos and get a quote from a mobile mechanic.</p>
+							<div class="project-footer">
+								<div class="project-tags">
+									<span class="project-tag">Web app</span>
+								</div>
+								<a class="project-github" href="https://github.com/jasperBrumter/velofix" target="_blank" aria-label="velofix on GitHub" title="View on GitHub">
+									<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+								</a>
+							</div>
+						</div>
+					</article>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="section">
+			<h2 class="title mt-30 mb-10">
+				<code>
+					stack
 				</code>
 			</h2>
 			<div class="underline mb-10"></div>
 
-			<div class="hidden-section">
-				<div>
-					JS,
-					HTML,
-					CSS,
-					PHP,
-					Laravel,
-					VueJS,
-					ReactJS,
-					TypeScript,
-					Ruby,
-					Ruby on Rails,
-					REST APIs
+			<div>
+				<h3 class="stack-group mt-10 mb-10"><code>languages</code></h3>
+				<div class="stack">
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>JavaScript</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>TypeScript</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/php/php-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>PHP</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/ruby/ruby-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>Ruby</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>HTML</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>CSS</span>
+					</div>
+				</div>
+				<h3 class="stack-group mt-10 mb-10"><code>frameworks</code></h3>
+				<div class="stack">
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>VueJS</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>ReactJS</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/laravel/laravel-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>Laravel</span>
+					</div>
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/rails/rails-plain.svg" alt="" width="40" height="40" loading="lazy">
+						<span>Ruby on Rails</span>
+					</div>
+				</div>
+				<h3 class="stack-group mt-10 mb-10"><code>other</code></h3>
+				<div class="stack">
+					<div class="stack-item">
+						<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/openapi/openapi-original.svg" alt="" width="40" height="40" loading="lazy">
+						<span>REST APIs</span>
+					</div>
 				</div>
 			</div>
 		</div>
-		<br><br><br><br><br>
-		<p class="mt-30">
-			Work in progress...
-		</p>
 	</div>
 </div>
 <br>
@@ -207,9 +485,6 @@ a {
 #name-underline {
 	transition: all 1.2s;
 }
-.title {
-	cursor: pointer;
-}
 
 .container {
 	max-width: 100%;
@@ -218,9 +493,11 @@ a {
 }
 
 .header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
 	height: 60px;
 	width: 100%;
-	background-color: rgb(230,230,230);
 	background-color: white;
 }
 
@@ -240,24 +517,11 @@ a {
 }
 
 .sky {
+	display: block;
 	width: 100%;
 	height: 70vh;
 	min-height: 500px;
-	background-image: linear-gradient(rgb(0, 0, 30), rgb(90, 90, 250));
-	background-attachment: fixed;
-	position: relative;
-	overflow: hidden;
-}
-
-.star {
-	position: absolute;
-	border-radius: 50%;
-}
-
-.shootingStar {
-	position: absolute;
-	border-radius: 50%;
-	background-color: white;
+	background-color: rgb(0, 0, 30);
 }
 
 .subtitle {
@@ -278,9 +542,6 @@ a {
 }
 .mt-30 {
 	margin-top: 30px;
-}
-.mb-30 {
-	margin-bottom: 30px;
 }
 .social-links {
 	background-color: white;
@@ -305,65 +566,180 @@ a {
 	width: 40px;
 	height: 3px;
 	background-color: black;
-	transition: all .5s;
-}
-
-.section {
-	transition: all .3s;
-}
-
-.underline-full {
-	width: 100%;
-	transition: all .5s;
 }
 
 .underline-full-name {
 	transition: all 1.2s;
 	width: 200px;
 }
-
-.hidden-section {
-	display: none;
-	transition: all .3s;
-}
-
-.opened {
-	display: block;
-}
 .projects {
-	display: flex;
-	flex-wrap: wrap;
-
-	border: 1px solid gray;
-	border-radius: 2px;
-	padding: 5px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr));
+	gap: 16px;
 }
 
 .project {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	border: 1px solid gray;
-	border-radius: 2px;
-	height: 80px;
-	flex: 1 0 200px;
-	cursor: pointer;
-	margin: 3px;
-	transition: font .2s smooth;
+	overflow: hidden;
+	border: 1px solid rgb(220,220,220);
+	border-radius: 8px;
+	background-color: white;
+	color: inherit;
+	box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	transition: transform .2s, box-shadow .2s;
 }
 
 .project:hover {
-	background-color: rgba(210,210,210,.1);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.project-image {
+	display: block;
 	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-bottom: 1px solid rgb(235,235,235);
 }
 
-.project code {
-	transition: text-decoration .2s smooth;
+.project-body {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	gap: 8px;
+	padding: 14px 16px 16px;
 }
 
-.project:hover code {
-	text-decoration: underline;
+.project-header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: baseline;
+	column-gap: 8px;
+}
+
+.project-title {
+	font-size: 16px;
+}
+
+.project .project-link {
+	color: inherit;
+}
+
+/* Stretch the title link over the whole card so the card stays clickable */
+.project-link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+}
+
+.project-link:focus-visible {
+	outline: none;
+}
+
+.project:has(.project-link:focus-visible) {
+	outline: 2px solid rgb(90,90,250);
+	outline-offset: 2px;
+}
+
+.project-footer {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.project .project-github {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-shrink: 0;
+	color: rgb(30,30,30);
+}
+
+.project .project-github:hover {
+	opacity: .5;
+	transition: .2s;
+}
+
+.darkmode .project .project-github {
+	color: white;
+}
+
+.project-year {
+	font-size: 12px;
+	color: gray;
+	white-space: nowrap;
+}
+
+.project-description {
+	flex: 1;
+	font-size: 14px;
+	color: rgb(90,90,90);
+}
+
+.project-tags {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+
+.project-tag {
+	padding: 2px 8px;
+	border-radius: 999px;
+	background-color: rgb(238,238,245);
+	font-size: 12px;
+}
+
+.darkmode .project {
+	color: white;
+	background-color: rgb(25,25,30);
+	border-color: rgb(60,60,70);
+}
+
+.darkmode .project-image {
+	border-bottom-color: rgb(60,60,70);
+}
+
+.darkmode .project-description {
+	color: rgb(180,180,180);
+}
+
+.darkmode .project-tag {
+	background-color: rgb(50,50,65);
+}
+
+.stack-group {
+	font-size: 14px;
+	color: gray;
+}
+
+.stack {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.stack-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 5px;
+	border: 1px solid gray;
+	border-radius: 2px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.darkmode .stack-item img {
+	background-color: rgb(200,200,200);
+	border-radius: 4px;
+	padding: 2px;
 }
 
 </style>
